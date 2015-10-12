@@ -1,47 +1,82 @@
 package com.mshr.reminder.activity;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.SystemClock;
+import android.view.View;
+import android.widget.Button;
 
 import com.mshr.reminder.R;
+import com.mshr.reminder.constant.Constant;
 import com.mshr.reminder.debug.Debug;
-import com.mshr.reminder.util.VibrationUtil;
+import com.mshr.reminder.receiver.ScheduleReceiver;
 
+public class MainActivity extends Activity implements View.OnClickListener {
+  private static final int ON_BUTTON_ID  = R.id.on_button;
+  private static final int OFF_BUTTON_ID = R.id.off_button;
 
-public class MainActivity extends ActionBarActivity {
+  private Debug         mDebug;
+  private Button        mOn_Button;
+  private Button        mOff_Button;
+  private AlarmManager  mAlarmManager;
+  private PendingIntent mPendingIntent;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    Debug debug = new Debug(getApplicationContext(), getClass().getSimpleName());
-    debug.errorLog("onCreate");
-    debug.shortToast("onCreate");
-    VibrationUtil.vibrate(getApplicationContext(), 3000);
+    mDebug = new Debug(getApplicationContext(), getClass().getSimpleName());
+
+    initView();
+    initAlarm();
   }
 
+  private PendingIntent getPendingIntent() {
+    if (mPendingIntent != null)
+      return mPendingIntent;
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    return true;
+    Intent intent   = new Intent(getApplicationContext(), ScheduleReceiver.class);
+    mPendingIntent  = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+    return mPendingIntent;
+  }
+
+  private  void initAlarm() {
+    mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+  }
+
+  private void initView() {
+    mOn_Button  = (Button)findViewById(ON_BUTTON_ID);
+    mOff_Button = (Button)findViewById(OFF_BUTTON_ID);
+
+    mOn_Button.setOnClickListener(this);
+    mOff_Button.setOnClickListener(this);
+  }
+
+  private void startAlarmManager() {
+    mDebug.shortToast("startAlarmManager");
+
+    long firstTime  = SystemClock.elapsedRealtime();
+    mAlarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTime, 10 * Constant.MINUTE, getPendingIntent());
+  }
+
+  private void stopAlarmManager() {
+    mDebug.shortToast("stopAlarmManager");
+
+    mAlarmManager.cancel(getPendingIntent());
   }
 
   @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
-    int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
+  public void onClick(View v) {
+    switch (v.getId()) {
+      case ON_BUTTON_ID:
+        startAlarmManager();
+        break;
+      case OFF_BUTTON_ID:
+        stopAlarmManager();
+        break;
     }
-
-    return super.onOptionsItemSelected(item);
   }
 }

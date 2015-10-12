@@ -5,6 +5,8 @@ import android.os.Vibrator;
 
 public class VibrationUtil {
 
+  private VibrationUtil() {}
+
   public static void vibrate(Context context, int vibrateTime) {
     Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
     vibrator.vibrate(vibrateTime);
