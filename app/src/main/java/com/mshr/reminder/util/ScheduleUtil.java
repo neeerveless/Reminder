@@ -15,7 +15,7 @@ public class ScheduleUtil {
 
   public static Map<String, String> parseSchedule(Calendar calendar, String schedule) {
     String[] scheduleElements = schedule.split(Constant.SPACE, 4);
-    if (!isBetweenNowAndAfterTenMinutes(calendar, scheduleElements[Constant.START_TIME_INDEX]))
+    if (!isBetweenNowAndAfterAlertTime(calendar, scheduleElements[Constant.START_TIME_INDEX]))
       return null;
 
     Map<String, String> scheduleMap = new HashMap<>();
@@ -29,33 +29,33 @@ public class ScheduleUtil {
     return scheduleMap;
   }
 
-  private static boolean isBetweenNowAndAfterTenMinutes(Calendar calendar, String startTime) {
-    return isWithinAfterTenMinute(calendar, startTime) && isFutuer(calendar, startTime);
+  private static boolean isBetweenNowAndAfterAlertTime(Calendar calendar, String startTime) {
+    return isWithinAlertTime(calendar, startTime) && isFuture(calendar, startTime);
   }
 
   private static Calendar getScheduleCalender(Calendar calendar, String startTime) {
-    Calendar scheduleCalender  = (Calendar)calendar.clone();
+    Calendar scheduleCalendar  = (Calendar)calendar.clone();
     String[] startTimeElements = startTime.split(Constant.COLON);
 
-    scheduleCalender.set(Calendar.HOUR  , Integer.valueOf(startTimeElements[Constant.START_HOUR]));
-    scheduleCalender.set(Calendar.MINUTE, Integer.valueOf(startTimeElements[Constant.START_MINUTE]));
+    scheduleCalendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(startTimeElements[Constant.START_HOUR]));
+    scheduleCalendar.set(Calendar.MINUTE, Integer.valueOf(startTimeElements[Constant.START_MINUTE]));
 
-    return scheduleCalender;
+    return scheduleCalendar;
   }
 
-  private static boolean isWithinAfterTenMinute(Calendar calendar, String startTime) {
-    Calendar scheduleCalender = getScheduleCalender(calendar, startTime);
+  private static boolean isWithinAlertTime(Calendar calendar, String startTime) {
+    Calendar scheduleCalendar = getScheduleCalender(calendar, startTime);
+    Calendar alertCalendar    = (Calendar)calendar.clone();
+    alertCalendar.add(Calendar.MINUTE, Constant.ALERT_TIME);
 
-    calendar.add(Calendar.MINUTE, Constant.ALERT_TIME);
-
-    boolean result = scheduleCalender.compareTo(calendar) < 0 ? true : false;
+    boolean result = scheduleCalendar.compareTo(alertCalendar) <= 0 ? true : false;
     return result;
   }
 
-  private static boolean isFutuer(Calendar calendar, String startTime) {
-    Calendar scheduleCalender = getScheduleCalender(calendar, startTime);
+  private static boolean isFuture(Calendar calendar, String startTime) {
+    Calendar scheduleCalendar = getScheduleCalender(calendar, startTime);
 
-    boolean result = scheduleCalender.compareTo(calendar) < 0 ? false : true;
+    boolean result = scheduleCalendar.compareTo(calendar) < 0 ? false : true;
     return result;
 
   }

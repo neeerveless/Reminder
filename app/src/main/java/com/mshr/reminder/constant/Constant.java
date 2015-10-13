@@ -8,7 +8,7 @@ public class Constant {
 
   public static final int SECOND      = 1000;
   public static final int MINUTE      = 60 * SECOND;
-  public static final int ALERT_TIME  = 10;
+  public static final int ALERT_TIME  = 20;
 
   public static final String AUTO_LOGIN_HTML    = "file:///android_asset/index.html";
   public static final String TOP_URL            = "https://gws48.j-motto.co.jp/cgi-bin/JM0302814/dneo.cgi?";
