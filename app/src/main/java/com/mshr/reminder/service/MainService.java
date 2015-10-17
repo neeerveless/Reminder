@@ -16,7 +16,6 @@ import com.mshr.reminder.util.NotificationUtil;
  * Created by MSHR on 2015/10/12.
  */
 public class MainService extends Service {
-  private Debug   mDebug;
   private Context mContext;
 
   private WebViewClient mViewClient = new WebViewClient() {
@@ -37,12 +36,12 @@ public class MainService extends Service {
   public void onCreate() {
     super.onCreate();
     mContext  = getApplicationContext();
-    mDebug    = new Debug(mContext, getClass().getSimpleName());
   }
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-    mDebug.shortToast("onStart");
+    Debug.errorLog();
+    Debug.shortToast(getApplicationContext());
 
     initWebView();
     return super.onStartCommand(intent, flags, startId);
@@ -59,7 +58,8 @@ public class MainService extends Service {
   }
 
   public void onLoadSCHDAY(String...schedules) {
-    mDebug.shortToast("onLoadSCDAY");
+    Debug.errorLog();
+    Debug.shortToast(getApplicationContext());
     NotificationUtil notification = new NotificationUtil(mContext);
     notification.showNotifications(schedules);
     stopSelf();

@@ -3,6 +3,7 @@ package com.mshr.reminder.util;
 public class StringUtil {
   private static final String DISPLAY_TIME_FORMAT = "%02d";
   public static final String COLON                = ":";
+  public static final String DOT                  = ".";
 
   private StringUtil() {}
   

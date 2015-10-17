@@ -11,14 +11,13 @@ import com.mshr.reminder.service.MainService;
  * Created by MSHR on 2015/10/12.
  */
 public class ScheduleReceiver extends BroadcastReceiver {
-  private Debug   mDebug;
   private Context mContext;
 
   @Override
   public void onReceive(Context context, Intent intent) {
     mContext  = context;
-    mDebug    = new Debug(mContext, getClass().getSimpleName());
-    mDebug.shortToast("onReceive");
+    Debug.errorLog();
+    Debug.shortToast(mContext);
 
     startService();
   }

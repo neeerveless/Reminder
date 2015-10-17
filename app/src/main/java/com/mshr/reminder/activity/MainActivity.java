@@ -18,7 +18,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
   private static final int ON_BUTTON_ID  = R.id.on_button;
   private static final int OFF_BUTTON_ID = R.id.off_button;
 
-  private Debug         mDebug;
   private Button        mOn_Button;
   private Button        mOff_Button;
   private AlarmManager  mAlarmManager;
@@ -28,7 +27,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    mDebug = new Debug(getApplicationContext(), getClass().getSimpleName());
 
     initView();
     initAlarm();
@@ -56,14 +54,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
   }
 
   private void startAlarmManager() {
-    mDebug.shortToast("startAlarmManager");
+    Debug.errorLog();
+    Debug.shortToast(getApplicationContext());
 
     long firstTime  = SystemClock.elapsedRealtime();
     mAlarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTime, 10 * Constant.MINUTE, getPendingIntent());
   }
 
   private void stopAlarmManager() {
-    mDebug.shortToast("stopAlarmManager");
+    Debug.errorLog();
+    Debug.shortToast(getApplicationContext());
 
     mAlarmManager.cancel(getPendingIntent());
   }
