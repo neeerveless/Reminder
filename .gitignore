@@ -22,5 +22,4 @@ proguard/
 .idea/libraries/
 .gradle
 app/build/
-*.html
 .DS_Store

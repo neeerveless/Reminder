@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 
 import com.mshr.reminder.constant.Constant;
 import com.mshr.reminder.debug.Debug;
+import com.mshr.reminder.util.AssetLoader;
 import com.mshr.reminder.util.NotificationUtil;
 
 /**
@@ -54,7 +55,22 @@ public class MainService extends Service {
     mWebView.getSettings().setJavaScriptEnabled(true);
     mWebView.addJavascriptInterface(this, "reminder");
     mWebView.setWebViewClient(mViewClient);
-    mWebView.loadUrl(Constant.AUTO_LOGIN_HTML);
+    mWebView.loadData(loadLoginHTML(), Constant.MINE_TYPE, Constant.ENCODE);
+  }
+
+  private String loadLoginHTML() {
+    String autoLoginHTML;
+    String templateHTML = AssetLoader.loadText(
+        getApplicationContext(),
+        Constant.AUTO_LOGIN_HTML,
+        AssetLoader.UTF8
+    );
+
+    autoLoginHTML = templateHTML.replace(Constant.C_ID, "c_id");
+    autoLoginHTML = autoLoginHTML.replace(Constant.P_ID, "p_id");
+    autoLoginHTML = autoLoginHTML.replace(Constant.PASSWORD, "password");
+
+    return autoLoginHTML;
   }
 
   public void onLoadSCHDAY(String...schedules) {

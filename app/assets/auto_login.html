@@ -1,0 +1,19 @@
+<!DOCUTYPE HTML>
+<html>
+  <head>
+    <title>Auto Login</title>
+  </head>
+  <body>
+    <form name="form" action="https://www1.j-motto.co.jp/fw/dfw/po80/portal/jsp/J10201.jsp?https://www1.j-motto.co.jp/fw/dfw/gws/cgi-bin/aspioffice/iocjmtgw.cgi?cmd=login" method="POST">
+      <input id="cid" type="text" name="cid">
+      <input id="pid" type="text" name="pid">
+      <input id="password" type="text" name="password">
+    </form>
+  </body>
+  <script type="text/javascript">
+    document.getElementById('cid').value='com.mshr.reminder.cid';
+    document.getElementById('pid').value='com.mshr.reminder.pid';
+    document.getElementById('password').value='com.mshr.reminder.password';
+    document.form.submit()
+  </script>
+</html>
