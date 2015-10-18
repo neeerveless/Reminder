@@ -57,6 +57,5 @@ public class ScheduleUtil {
 
     boolean result = scheduleCalendar.compareTo(calendar) < 0 ? false : true;
     return result;
-
   }
 }

@@ -50,7 +50,7 @@ public class MainService extends Service {
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     Debug.errorLog();
-    Debug.shortToast(getApplicationContext());
+    Debug.shortToast(mContext);
 
     initWebView();
     return START_NOT_STICKY;
@@ -69,7 +69,7 @@ public class MainService extends Service {
   private String loadLoginHTML() {
     String autoLoginHTML;
     String templateHTML = AssetLoader.loadText(
-        getApplicationContext(),
+        mContext,
         Constant.AUTO_LOGIN_HTML,
         AssetLoader.UTF8
     );
@@ -89,17 +89,21 @@ public class MainService extends Service {
 
   public void onLoginError() {
     Debug.errorLog();
-    Debug.shortToast(getApplicationContext());
+    Debug.shortToast(mContext);
+
     NotificationUtil notification = new NotificationUtil(mContext);
     notification.showNotification();
+
     stopSelf();
   }
 
   public void onLoadSCHDAY(String...schedules) {
     Debug.errorLog();
-    Debug.shortToast(getApplicationContext());
+    Debug.shortToast(mContext);
+
     NotificationUtil notification = new NotificationUtil(mContext);
     notification.showNotifications(schedules);
+
     stopSelf();
   }
 

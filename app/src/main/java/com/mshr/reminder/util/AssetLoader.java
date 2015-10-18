@@ -17,10 +17,10 @@ public class AssetLoader {
 
   private static byte[] readStream(Context context, String assetName)
   throws IOException {
-    AssetManager am = context.getAssets();
-    BufferedInputStream bis = new BufferedInputStream(am.open(assetName));
-    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    byte[] bytes = new byte[READ_LENGTH];
+    byte[]                bytes = new byte[READ_LENGTH];
+    AssetManager          am    = context.getAssets();
+    BufferedInputStream   bis   = new BufferedInputStream(am.open(assetName));
+    ByteArrayOutputStream bos   = new ByteArrayOutputStream();
 
     try {
       int length = 0;

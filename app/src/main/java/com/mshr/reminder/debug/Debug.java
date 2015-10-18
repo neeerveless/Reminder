@@ -151,7 +151,7 @@ public class Debug {
    * @return
    */
   private static Toast makeToast(Context context, String msg, int duration) {
-    return Toast.makeText(context, msg, duration);
+    return Toast.makeText(context, makeToastMessage(msg), duration);
   }
 
   /**
@@ -160,11 +160,11 @@ public class Debug {
    * @param msg 表示メッセ-ジ
    */
   public static void longToast(Context context, String msg) {
-    makeToast(context, makeToastMessage(msg), Toast.LENGTH_LONG).show();
+    makeToast(context, msg, Toast.LENGTH_LONG).show();
   }
 
   public static void longToast(Context context) {
-    makeToast(context, makeToastMessage(""), Toast.LENGTH_LONG).show();
+    makeToast(context, "", Toast.LENGTH_LONG).show();
   }
 
   /**
@@ -173,11 +173,11 @@ public class Debug {
    * @param msg 表示メッセージ
    */
   public static void shortToast(Context context, String msg) {
-    makeToast(context, makeToastMessage(msg), Toast.LENGTH_SHORT).show();
+    makeToast(context, msg, Toast.LENGTH_SHORT).show();
   }
 
   public static void shortToast(Context context) {
-    makeToast(context, makeToastMessage(""), Toast.LENGTH_SHORT).show();
+    makeToast(context, "", Toast.LENGTH_SHORT).show();
   }
 
   private static StackTraceElement getCaller() {

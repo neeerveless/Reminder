@@ -4,8 +4,7 @@ package com.mshr.reminder.constant;
  * Created by MSHR on 2015/10/12.
  */
 public class Constant {
-  public Constant() {};
-
+  private Constant() {};
 
   public static final int SECOND      = 1000;
   public static final int MINUTE      = 60 * SECOND;
