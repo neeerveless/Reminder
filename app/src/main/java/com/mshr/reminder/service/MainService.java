@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 
 import com.mshr.reminder.constant.Constant;
 import com.mshr.reminder.debug.Debug;
+import com.mshr.reminder.util.ApplicationConfig;
 import com.mshr.reminder.util.AssetLoader;
 import com.mshr.reminder.util.NotificationUtil;
 
@@ -17,11 +18,17 @@ import com.mshr.reminder.util.NotificationUtil;
  * Created by MSHR on 2015/10/12.
  */
 public class MainService extends Service {
-  private Context mContext;
+  private Context           mContext;
+  private ApplicationConfig mApplicationConfig;
 
   private WebViewClient mViewClient = new WebViewClient() {
     @Override
     public void onPageFinished(WebView webView, String url) {
+      if (webView.getTitle().equals(Constant.LOGIN_ERROR)) {
+        onLoginError();
+        return;
+      }
+
       switch (url) {
         case Constant.TOP_URL:
           webView.loadUrl(Constant.DAILY_URL);
@@ -36,7 +43,8 @@ public class MainService extends Service {
   @Override
   public void onCreate() {
     super.onCreate();
-    mContext  = getApplicationContext();
+    mContext            = getApplicationContext();
+    mApplicationConfig  = new ApplicationConfig(mContext, Constant.CONFIG, Context.MODE_PRIVATE);
   }
 
   @Override
@@ -45,7 +53,7 @@ public class MainService extends Service {
     Debug.shortToast(getApplicationContext());
 
     initWebView();
-    return super.onStartCommand(intent, flags, startId);
+    return START_NOT_STICKY;
   }
 
   private void initWebView() {
@@ -66,11 +74,25 @@ public class MainService extends Service {
         AssetLoader.UTF8
     );
 
-    autoLoginHTML = templateHTML.replace(Constant.C_ID, "c_id");
-    autoLoginHTML = autoLoginHTML.replace(Constant.P_ID, "p_id");
-    autoLoginHTML = autoLoginHTML.replace(Constant.PASSWORD, "password");
+    autoLoginHTML = templateHTML.replace(
+        Constant.C_ID,      (String)mApplicationConfig.getData(Constant.C_ID)
+    );
+    autoLoginHTML = autoLoginHTML.replace(
+        Constant.P_ID,      (String)mApplicationConfig.getData(Constant.P_ID)
+    );
+    autoLoginHTML = autoLoginHTML.replace(
+        Constant.PASSWORD,  (String)mApplicationConfig.getData(Constant.PASSWORD)
+    );
 
     return autoLoginHTML;
+  }
+
+  public void onLoginError() {
+    Debug.errorLog();
+    Debug.shortToast(getApplicationContext());
+    NotificationUtil notification = new NotificationUtil(mContext);
+    notification.showNotification();
+    stopSelf();
   }
 
   public void onLoadSCHDAY(String...schedules) {

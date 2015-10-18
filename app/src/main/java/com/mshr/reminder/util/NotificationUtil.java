@@ -24,6 +24,20 @@ public class NotificationUtil {
     mCalendar.setTimeInMillis(System.currentTimeMillis());
   }
 
+  public void showNotification() {
+    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
+    mBuilder.setSmallIcon(R.drawable.ic_launcher);
+    NotificationManagerCompat manager = NotificationManagerCompat.from(mContext);
+
+    mBuilder.setContentTitle(Constant.LOGIN_ERROR);
+    mBuilder.setLights(Color.BLUE, 1 * Constant.SECOND, 1 * Constant.SECOND);
+    mBuilder.setAutoCancel(true);
+
+    manager.notify(1, mBuilder.build());
+
+    VibrationUtil.vibrate(mContext, 1 * Constant.SECOND);
+  }
+
   public void showNotifications(String...schedules) {
     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
     mBuilder.setSmallIcon(R.drawable.ic_launcher);

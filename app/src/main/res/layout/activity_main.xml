@@ -1,13 +1,78 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                xmlns:mshr="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/outside"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp" >
                 tools:context=".MainActivity">
+    <LinearLayout
+        style="@style/config_row"
+        android:orientation="vertical" >
 
+        <com.mshr.reminder.viewparts.OriginalFontTextView
+            android:id="@+id/c_id_label"
+            style="@style/label"
+            android:background="@drawable/label_background"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/c_id"
+            mshr:font="@string/m_font_bold" />
+
+        <fragment
+            android:id="@+id/c_id_text_edit"
+            android:name="com.mshr.reminder.fragment.TextEditFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/config_row"
+        android:orientation="vertical" >
+
+        <com.mshr.reminder.viewparts.OriginalFontTextView
+            android:id="@+id/p_id_label"
+            style="@style/label"
+            android:background="@drawable/label_background"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/p_id"
+            mshr:font="@string/m_font_bold" />
+
+        <fragment
+            android:id="@+id/p_id_text_edit"
+            android:name="com.mshr.reminder.fragment.TextEditFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/config_row"
+        android:orientation="vertical" >
+
+        <com.mshr.reminder.viewparts.OriginalFontTextView
+            android:id="@+id/password_label"
+            style="@style/label"
+            android:background="@drawable/label_background"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/password"
+            mshr:font="@string/m_font_bold" />
+
+        <fragment
+            android:id="@+id/password_edit"
+            android:name="com.mshr.reminder.fragment.PasswordEditFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,4 +99,4 @@
             android:text="@string/off_button" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

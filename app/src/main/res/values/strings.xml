@@ -4,5 +4,12 @@
     <string name="app_name">Reminder</string>
     <string name="on_button">ON</string>
     <string name="off_button">OFF</string>
+    <string name="m_font_normal">m-fonts-normal.ttf</string>
+    <string name="m_font_bold">m-fonts-bold.ttf</string>
+    <string name="empty_string"></string>
+    <string name="text_edit_alert">Empty</string>
+    <string name="c_id">会員ID</string>
+    <string name="p_id">ユーザーID</string>
+    <string name="password">パスワード</string>
 
 </resources>

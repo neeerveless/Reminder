@@ -6,11 +6,13 @@ package com.mshr.reminder.constant;
 public class Constant {
   public Constant() {};
 
+
   public static final int SECOND      = 1000;
   public static final int MINUTE      = 60 * SECOND;
   public static final int ALERT_TIME  = 20;
 
   public static final String AUTO_LOGIN_HTML    = "auto_login.html";
+  public static final String CONFIG             = "com.mshr.reminder.config";
   public static final String C_ID               = "com.mshr.reminder.cid";
   public static final String P_ID               = "com.mshr.reminder.pid";
   public static final String PASSWORD           = "com.mshr.reminder.password";
@@ -19,6 +21,7 @@ public class Constant {
   public static final String TOP_URL            = "https://gws48.j-motto.co.jp/cgi-bin/JM0302814/dneo.cgi?";
   public static final String DAILY_URL          = "https://gws48.j-motto.co.jp/cgi-bin/JM0302814/dneo.cgi?cmd=schindex#cmd=schday";
   public static final String LOAD_SCHDAY_SCRIPT = "javascript:var array=[];$('.cal-item-box > a').each(function() {array.push($(this).attr('title'));});reminder.onLoadSCHDAY(array);";
+  public static final String LOGIN_ERROR        = "ログインエラー｜クラウド型グループウェアならJ-MOTT";
 
   public static final int START_TIME_INDEX = 0;
   public static final int SEPARATER_INDEX  = 1;

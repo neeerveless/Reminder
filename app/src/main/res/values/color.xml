@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="trans">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="trans_a_black">#aa000000</color>
+    <color name="white">#ffffff</color>
+    <color name="light_gray">#f0f0f0</color>
+    <color name="gray">#a0a0a0</color>
+    <color name="light_gray_pressed">#d0d0d0</color>
+    <color name="gray_pressed">#808080</color>
+    <color name="red">#e84c3d</color>
+    <color name="orange">#e77e23</color>
+    <color name="green">#2bcc70</color>
+    <color name="blue">#3598db</color>
+</resources>
